@@ -14,7 +14,12 @@ export const moveUp = (
 
   for (let i = 0; i < data.length; i++) {
     for (let j = 0; j < data[i].length; j++) {
-      if (i !== 4 && data[i][j] === data[i + 1][j]) {
+      if (
+        i !== 4 &&
+        data[i][j] === data[i + 1][j] &&
+        data[i][j] !== 0 &&
+        data[i + 1][j] !== 0
+      ) {
         if (modified[i][j] === 0) {
           copy[i][j] = copy[i][j] + copy[i + 1][j];
           copy[i + 1][j] = 0;
@@ -22,7 +27,13 @@ export const moveUp = (
           modified[i][j] = copy[i][j];
         }
       }
-      if (i !== 4 && i !== 3 && data[i][j] === data[i + 2][j]) {
+      if (
+        i !== 4 &&
+        i !== 3 &&
+        data[i][j] === data[i + 2][j] &&
+        data[i][j] !== 0 &&
+        data[i + 2][j] !== 0
+      ) {
         if (data[i + 1][j] === 0) {
           if (modified[i][j] === 0) {
             copy[i][j] = copy[i][j] + copy[i + 2][j];
@@ -31,7 +42,14 @@ export const moveUp = (
           }
         }
       }
-      if (i !== 4 && i !== 3 && i !== 2 && data[i][j] === data[i + 3][j]) {
+      if (
+        i !== 4 &&
+        i !== 3 &&
+        i !== 2 &&
+        data[i][j] === data[i + 3][j] &&
+        data[i][j] !== 0 &&
+        data[i + 3][j] !== 0
+      ) {
         if (data[i + 1][j] === 0 && data[i + 2][j] === 0) {
           if (modified[i][j] === 0) {
             copy[i][j] = copy[i][j] + copy[i + 3][j];
@@ -40,7 +58,12 @@ export const moveUp = (
           }
         }
       }
-      if (i === 0 && data[i][j] === data[i + 4][j]) {
+      if (
+        i === 0 &&
+        data[i][j] === data[i + 4][j] &&
+        data[i][j] !== 0 &&
+        data[i + 4][j] !== 0
+      ) {
         if (
           data[i + 1][j] === 0 &&
           data[i + 2][j] === 0 &&
