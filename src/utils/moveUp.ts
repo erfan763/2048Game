@@ -76,41 +76,29 @@ export const moveUp = (
           }
         }
       }
-      setData(copy);
-    }
-  }
-};
-export const updateUpMove = (
-  data: number[][],
-  setData: React.Dispatch<React.SetStateAction<number[][]>>
-) => {
-  let copy = [...data];
-
-  for (let i = 0; i < data.length; i++) {
-    for (let j = 0; j < data[i].length; j++) {
-      if (data[0][j] === 0) {
+      if (data[0][j] === 0 && copy[1][j] !== 0) {
         copy[0][j] = copy[1][j];
         copy[1][j] = copy[2][j];
         copy[2][j] = copy[3][j];
         copy[3][j] = copy[4][j];
         copy[4][j] = 0;
       }
-      if (data[1][j] === 0) {
+      if (data[1][j] === 0 && copy[2][j]! !== 0) {
         copy[1][j] = copy[2][j];
         copy[2][j] = copy[3][j];
         copy[3][j] = copy[4][j];
         copy[4][j] = 0;
       }
-      if (data[2][j] === 0) {
+      if (data[2][j] === 0 && copy[3][j] !== 0) {
         copy[2][j] = copy[3][j];
         copy[3][j] = copy[4][j];
         copy[4][j] = 0;
       }
-      if (data[3][j] === 0) {
+      if (data[3][j] === 0 && copy[4][j] !== 0) {
         copy[3][j] = copy[4][j];
         copy[4][j] = 0;
       }
-      setData(copy);
     }
   }
+  setData(copy);
 };

@@ -1,7 +1,6 @@
 export const moveRight = (
   data: number[][],
-  setData: React.Dispatch<React.SetStateAction<number[][]>>,
-  setCanMoveRight: React.Dispatch<React.SetStateAction<boolean>>
+  setData: React.Dispatch<React.SetStateAction<number[][]>>
 ) => {
   let copy = [...data];
 
@@ -24,17 +23,15 @@ export const moveRight = (
         if (modified[i][j + 1] === 0) {
           copy[i][j + 1] = copy[i][j] + copy[i][j + 1];
           copy[i][j] = 0;
-
           modified[i][j + 1] = copy[i][j + 1];
-          setCanMoveRight(true);
         }
-      } else setCanMoveRight(false);
+      }
       if (
         j !== 4 &&
         j !== 3 &&
         data[i][j] === data[i][j + 2] &&
         data[i][j] !== 0 &&
-        data[i][j + 1] !== 0
+        data[i][j + 2] !== 0
       ) {
         if (data[i][j + 1] === 0) {
           if (modified[i][j + 2] === 0) {
@@ -42,7 +39,6 @@ export const moveRight = (
             copy[i][j] = 0;
 
             modified[i][j + 2] = copy[i][j + 2];
-            setCanMoveRight(true);
           }
         }
       }
@@ -52,7 +48,7 @@ export const moveRight = (
         j !== 2 &&
         data[i][j] === data[i][j + 3] &&
         data[i][j] !== 0 &&
-        data[i][j + 1] !== 0
+        data[i][j + 3] !== 0
       ) {
         if (data[i][j + 1] === 0 && data[i][j + 2] === 0) {
           if (modified[i][j + 3] === 0) {
@@ -60,7 +56,6 @@ export const moveRight = (
             copy[i][j] = 0;
 
             modified[i][j + 3] = copy[i][j + 3];
-            setCanMoveRight(true);
           }
         }
       }
@@ -69,7 +64,7 @@ export const moveRight = (
         j === 0 &&
         data[i][j] === data[i][j + 4] &&
         data[i][j] !== 0 &&
-        data[i][j + 1] !== 0
+        data[i][j + 4] !== 0
       ) {
         if (
           data[i][j + 1] === 0 &&
@@ -81,23 +76,9 @@ export const moveRight = (
             copy[i][j] = 0;
 
             modified[i][j + 4] = copy[i][j + 4];
-            setCanMoveRight(true);
           }
         }
       }
-      setData(copy);
-    }
-  }
-};
-
-export const updateRightMove = (
-  data: number[][],
-  setData: React.Dispatch<React.SetStateAction<number[][]>>
-) => {
-  let copy = [...data];
-
-  for (let i = 0; i < data.length; i++) {
-    for (let j = 0; j < data[i].length; j++) {
       if (data[i][1] === 0 && data[i][0] !== 0) {
         copy[i][1] = copy[i][0];
         copy[i][0] = 0;
@@ -114,8 +95,7 @@ export const updateRightMove = (
         copy[i][4] = copy[i][3];
         copy[i][3] = 0;
       }
-
-      setData(copy);
     }
   }
+  setData(copy);
 };
