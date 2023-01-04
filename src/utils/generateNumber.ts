@@ -19,10 +19,12 @@ export const afterEveryMove = (
   const randomNumber = [2, 4, 2, 2, 2];
   const chooseRandomNumber = Math.floor(Math.random() * 5);
 
-  const firstNumber = Math.floor(Math.random() * 5);
-  const secondNumber = Math.floor(Math.random() * 5);
+  const d = data.filter((v, i) => v?.filter((b, j) => b === 0));
+  console.log(d, "Hellooo");
   for (let i = 0; i < data.length; i++) {
     for (let j = 0; j < data[i].length; j++) {
+      const firstNumber = Math.floor(Math.random() * 5);
+      const secondNumber = Math.floor(Math.random() * 5);
       if (data[secondNumber][firstNumber] === 0) {
         copy[secondNumber][firstNumber] = randomNumber[chooseRandomNumber];
         setData(copy);

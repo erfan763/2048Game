@@ -3,8 +3,14 @@ export const moveLeft = (
   setData: React.Dispatch<React.SetStateAction<number[][]>>
 ) => {
   let copy = [...data];
-
   let modified = [
+    [0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0],
+  ];
+  let checkModifier = [
     [0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0],
@@ -80,23 +86,36 @@ export const moveLeft = (
           }
         }
       }
+    }
+  }
+  for (let i = 0; i < data.length; i++) {
+    for (let j = 0; j < data[i].length; j++) {
       if (data[i][3] === 0 && data[i][4] !== 0) {
         copy[i][3] = copy[i][4];
         copy[i][4] = 0;
+        modified[0][0] = 3;
       }
       if (data[i][2] === 0 && data[i][3] !== 0) {
         copy[i][2] = copy[i][3];
         copy[i][3] = 0;
+        modified[0][0] = 5;
       }
       if (data[i][1] === 0 && data[i][2] !== 0) {
         copy[i][1] = copy[i][2];
         copy[i][2] = 0;
+        modified[0][0] = 7;
       }
       if (data[i][0] === 0 && data[i][1] !== 0) {
         copy[i][0] = copy[i][1];
         copy[i][1] = 0;
+        modified[0][0] = 9;
       }
     }
   }
+  if (JSON.stringify(modified) === JSON.stringify(checkModifier)) {
+    setData(copy);
+    return false;
+  }
   setData(copy);
+  return true;
 };

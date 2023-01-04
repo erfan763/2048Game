@@ -2,9 +2,16 @@ export const moveUp = (
   data: number[][],
   setData: React.Dispatch<React.SetStateAction<number[][]>>
 ) => {
-  let copy = [...data];
-
+  let copy = Array.from(data);
   let modified = [
+    [0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0],
+  ];
+
+  let checkModifier = [
     [0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0],
@@ -76,29 +83,43 @@ export const moveUp = (
           }
         }
       }
+    }
+  }
+  for (let i = 0; i < data.length; i++) {
+    for (let j = 0; j < data[i].length; j++) {
       if (data[0][j] === 0 && copy[1][j] !== 0) {
         copy[0][j] = copy[1][j];
         copy[1][j] = copy[2][j];
         copy[2][j] = copy[3][j];
         copy[3][j] = copy[4][j];
         copy[4][j] = 0;
+        modified[0][0] = 3;
       }
       if (data[1][j] === 0 && copy[2][j]! !== 0) {
         copy[1][j] = copy[2][j];
         copy[2][j] = copy[3][j];
         copy[3][j] = copy[4][j];
         copy[4][j] = 0;
+        modified[0][0] = 5;
       }
       if (data[2][j] === 0 && copy[3][j] !== 0) {
         copy[2][j] = copy[3][j];
         copy[3][j] = copy[4][j];
         copy[4][j] = 0;
+        modified[0][0] = 7;
       }
       if (data[3][j] === 0 && copy[4][j] !== 0) {
         copy[3][j] = copy[4][j];
         copy[4][j] = 0;
+        modified[0][0] = 9;
       }
     }
   }
+
+  if (JSON.stringify(modified) === JSON.stringify(checkModifier)) {
+    setData(copy);
+    return false;
+  }
   setData(copy);
+  return true;
 };
