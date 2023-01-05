@@ -1,8 +1,14 @@
+import { useCallback, useMemo } from "react";
+
 export const moveUp = (
   data: number[][],
-  setData: React.Dispatch<React.SetStateAction<number[][]>>
+  setData: React.Dispatch<React.SetStateAction<number[][]>>,
+  setBackData: React.Dispatch<React.SetStateAction<number[][]>>
 ) => {
-  let copy = Array.from(data);
+  let copy = [...data];
+
+  const copy2 = copy.map((item) => item.slice());
+
   let modified = [
     [0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0],
@@ -18,6 +24,7 @@ export const moveUp = (
     [0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0],
   ];
+  // setBackData((prev) => [...prev, ...copy]);
 
   for (let i = 0; i < data.length; i++) {
     for (let j = 0; j < data[i].length; j++) {
@@ -120,6 +127,7 @@ export const moveUp = (
     setData(copy);
     return false;
   }
+  setBackData((prev) => [...prev, ...copy2]);
   setData(copy);
   return true;
 };

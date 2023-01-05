@@ -1,8 +1,12 @@
 export const moveDown = (
   data: number[][],
-  setData: React.Dispatch<React.SetStateAction<number[][]>>
+  setData: React.Dispatch<React.SetStateAction<number[][]>>,
+  setBackData: React.Dispatch<React.SetStateAction<number[][]>>
 ) => {
   let copy = [...data];
+
+  const copy2 = copy.map((item) => item.slice());
+
   let modified = [
     [0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0],
@@ -119,11 +123,11 @@ export const moveDown = (
     }
   }
   console.log(JSON.stringify(modified) === JSON.stringify(checkModifier));
-  console.log(modified, checkModifier);
   if (JSON.stringify(modified) === JSON.stringify(checkModifier)) {
     setData(copy);
     return false;
   }
+  setBackData((prev) => [...prev, ...copy2]);
   setData(copy);
   return true;
 };

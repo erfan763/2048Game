@@ -7,7 +7,6 @@ import { moveLeft } from "../utils/moveLeft";
 import { moveRight } from "../utils/moveright";
 import { gameOver } from "../utils/gameOver";
 import { afterEveryMove, startGame } from "../utils/generateNumber";
-import usePrevious from "../hooks/usePrevious";
 
 export default function Main() {
   const [data, setData] = useState<number[][]>([
@@ -17,11 +16,8 @@ export default function Main() {
     [0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0],
   ]);
-
+  const [backData, setBackData] = useState<number[][]>([[0, 0, 0, 0, 0]]);
   const [isGameOver, setIsGameOver] = useState<boolean>(true);
-
-  // const d = usePrevious(data);
-
   useMemo(() => {
     const isAllZero = data.every((v, i) => v.every((d, j) => d === 0));
     if (isAllZero) {
@@ -37,7 +33,7 @@ export default function Main() {
   document.onkeydown = (e) => {
     e = e || window.event;
     if (e.keyCode === 38) {
-      const canMoveResp = moveUp(data, setData);
+      const canMoveResp = moveUp(data, setData, setBackData);
       const resp = gameOver(data);
       if (!resp && canMoveResp) {
         afterEveryMove(data, setData);
@@ -45,21 +41,21 @@ export default function Main() {
 
       console.log("up arrow pressed");
     } else if (e.keyCode === 40) {
-      const canMoveResp = moveDown(data, setData);
+      const canMoveResp = moveDown(data, setData, setBackData);
       const resp = gameOver(data);
       if (!resp && canMoveResp) {
         afterEveryMove(data, setData);
       }
       console.log("down arrow pressed");
     } else if (e.keyCode === 37) {
-      const canMoveResp = moveLeft(data, setData);
+      const canMoveResp = moveLeft(data, setData, setBackData);
       const resp = gameOver(data);
       if (!resp && canMoveResp) {
         afterEveryMove(data, setData);
       }
       console.log("left arrow pressed");
     } else if (e.keyCode === 39) {
-      const canMoveResp = moveRight(data, setData);
+      const canMoveResp = moveRight(data, setData, setBackData);
       const resp = gameOver(data);
       if (!resp && canMoveResp) {
         afterEveryMove(data, setData);
@@ -155,7 +151,7 @@ export default function Main() {
         })}
       </Box>
       <Button
-        // disabled={!isGameOver}
+        disabled={!isGameOver}
         onClick={() =>
           setData([
             [0, 0, 0, 0, 0],
@@ -171,8 +167,21 @@ export default function Main() {
         Reset
       </Button>
       <Button
-        disabled={!isGameOver}
-        onClick={() => {}}
+        disabled={backData?.length === 1 || backData.length === 0}
+        onClick={() => {
+          setData([
+            [...backData[backData.length - 5]],
+            [...backData[backData.length - 4]],
+            [...backData[backData.length - 3]],
+            [...backData[backData.length - 2]],
+            [...backData[backData.length - 1]],
+          ]);
+          backData.pop();
+          backData.pop();
+          backData.pop();
+          backData.pop();
+          backData.pop();
+        }}
         sx={{ mt: 4 }}
         variant="contained"
       >
