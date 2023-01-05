@@ -127,8 +127,7 @@ export default function Main() {
                   <Box
                     bgcolor={bgcolor(d) || "unset"}
                     sx={{
-                      animationName: "example",
-                      animationDuration: "4s",
+                      transition: "all 0.2s ease-in-out",
                     }}
                     color="#FFFFFF"
                     key={j}
